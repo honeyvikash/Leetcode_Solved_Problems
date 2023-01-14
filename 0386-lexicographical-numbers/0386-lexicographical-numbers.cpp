@@ -14,7 +14,7 @@ public:
         } 
         else 
         {
-            while((p/10) % 10 == 9) 
+            while((p/10) % 10 == 9) // last 2nd digit
             {
                 p /= 10;
             }
