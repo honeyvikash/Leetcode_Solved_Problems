@@ -12,27 +12,19 @@ class Solution{
     public:
     int carpetBox(int A, int B, int C, int D){
         //code here
-         int count=0;
-        priority_queue<int>p,q;
-        p.push(A);p.push(B);
-        q.push(C);q.push(D);
-        while(p.size()!=0)
+        if((A<=C && B<=D) || (A<=D && B<=C))
         {
-            int check=p.top();
-            if(check<=q.top())
-            {
-                q.pop();
-                p.pop();
-            }           
-            else
-            {
-                int val=p.top()/2;
-                count++;
-                p.pop();
-                p.push(val);
-            }
+            return 0;
         }
-        return count;
+        if(A>C && A>D)
+        {
+            return 1+carpetBox(A/2,B,C,D);
+        }
+        if(B>C && B>D)
+        {
+            return 1+carpetBox(A,B/2,C,D);
+        }
+        return min(1+carpetBox(A,B/2,C,D),1+carpetBox(A/2,B,C,D));
     }
 };
 
