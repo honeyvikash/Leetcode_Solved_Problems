@@ -48,16 +48,46 @@ public:
         
     }
     
+    int solveTab(vector<vector<char>>& mat,int &maxi)
+    {
+         int row=mat.size(),col=mat[0].size();
+         vector<vector<int>>dp(row+1,vector<int>(col+1,0));
+
+        for(int i=row-1;i>=0;i--)
+        {
+            for(int j=col-1;j>=0;j--)
+            {
+                int right=dp[i][j+1];
+                int diag=dp[i+1][j+1];
+                int down=dp[i+1][j];
+
+                if(mat[i][j]=='1')
+                {
+                    dp[i][j] =1+min({right,diag,down});
+                    maxi=max(maxi,dp[i][j]);
+                    
+                }
+                else
+                     dp[i][j]=0;
+            }
+        }
+        return dp[0][0];
+    }
+    
     int maximalSquare(vector<vector<char>>& mat) {
         // int maxi=0;
         // solveRec(mat,0,0,maxi);
         // return maxi*maxi;
         
+        // int maxi=0;
+        // int row=mat.size(),col=mat[0].size();
+        // vector<vector<int>>dp(row+1,vector<int>(col,-1));
+        // solveMem(mat,0,0,maxi,dp);
+        // return maxi*maxi;
+        
         int maxi=0;
-        int row=mat.size(),col=mat[0].size();
-        vector<vector<int>>dp(row+1,vector<int>(col,-1));
-        solveMem(mat,0,0,maxi,dp);
-        return maxi*maxi;
+        solveTab(mat,maxi);
+        return  maxi*maxi;
             
     }
 };
