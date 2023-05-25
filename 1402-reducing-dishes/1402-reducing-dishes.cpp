@@ -31,10 +31,33 @@ public:
         
         return dp[0][0];
     }
+    
+     int solveTab2(vector<int>& sat)
+    {
+        int n=sat.size();
+        vector<int>curr(n+1,0),next(n+1,0);
+         
+         
+        
+        for(int idx = n-1; idx>=0 ; idx--)
+        {
+            for(int time = idx ; time >=0 ; time--)
+            {
+                int in = sat[idx]*(time+1)+next[time+1];
+                int ex = 0                +next[time];
+                
+                curr[time] = max(in,ex);
+            }
+             next = curr;
+        }
+        
+        return next[0];
+    }
+    
     int maxSatisfaction(vector<int>& sat) {
         // int n=sat.size();
         sort(sat.begin(),sat.end());
         // vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
-        return solveTab(sat);
+        return solveTab2(sat);
     }
 };
