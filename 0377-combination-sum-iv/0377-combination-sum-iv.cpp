@@ -1,4 +1,5 @@
 class Solution {
+    #define ll long long 
 public:
     int solveMem(vector<int>& nums, int tar,vector<int>& dp)
     {
@@ -26,8 +27,29 @@ public:
         }
         return ans;
     }
+    
+    int solveTab(vector<int>& nums, int& tar)
+    {
+        vector<ll>dp(tar+1,0);
+        dp[0]=1;
+        
+        for(int i=1;i<=tar;i++)
+        {
+            for(int j=0;j<nums.size();j++)
+            {
+                if(i-nums[j]>=0)
+                {
+                    dp[i] += dp[i-nums[j]];
+                }
+                if (dp[i] > INT_MAX) break; //
+            }
+        }
+        return dp[tar];
+    }
+    
     int combinationSum4(vector<int>& nums, int tar) {
-        vector<int>dp(tar+1,-1);
-        return solveMem(nums,tar,dp);
+        // vector<int>dp(tar+1,-1);
+        // return solveMem(nums,tar,dp);
+        return solveTab(nums,tar);
     }
 };
