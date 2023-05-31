@@ -18,7 +18,7 @@ public:
     int solveTab(vector<int>& a)
     {
         int n = a.size();
-        vector<int>dp(n,0);
+        vector<int>dp(n+1,0);
         dp[0] = a[0];
         for(int i=1;i<n;i++)
         {
