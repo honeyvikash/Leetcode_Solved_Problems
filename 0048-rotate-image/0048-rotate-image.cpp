@@ -12,14 +12,9 @@ public:
                { swap(matrix[i][j], matrix[j][i]);}
             }
         }
-         for(int i=0; i< (matrix.size()) ; i++)
+         for(int i=0; i< n ; i++)
         {
-            for(int j=0; j< c/2 ; j++)
-            {
-                
-                swap(matrix[i][j], matrix[i][c-j-1]);
-            }
+            reverse(matrix[i].begin(),matrix[i].end());
         }
-        
     }
 };
