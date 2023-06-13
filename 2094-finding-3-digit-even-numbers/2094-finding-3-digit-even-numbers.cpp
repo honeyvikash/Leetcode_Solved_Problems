@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> findEvenNumbers(vector<int>& digits) {
-        set<int>st;
+        unordered_set<int>st;
         int n = digits.size();
         for(int i=0;i<n;i++)
         {
@@ -25,6 +25,7 @@ public:
         }
         vector<int> vec;
         vec.assign(st.begin(),st.end());
+        sort(vec.begin(),vec.end());
         return vec;
     }
 };
