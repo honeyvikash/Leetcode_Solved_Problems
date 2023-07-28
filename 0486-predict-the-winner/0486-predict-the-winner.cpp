@@ -37,18 +37,18 @@ public:
     }
     bool PredictTheWinner(vector<int>& a) {
         
-        long long total = accumulate(a.begin(),a.end(),0ll);
-        int n = a.size();
-        vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
-        int f = solve2(a,0,n-1,dp);
-        return f>=total-f;
-        
-        // memset(dp,-1,sizeof(dp));
+        // long long total = accumulate(a.begin(),a.end(),0ll);
         // int n = a.size();
-        // int ans = solve(0,n-1,a,1);
-        // if(ans>=0)
-        //     return true;
-        // return false;
+        // vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
+        // int f = solve2(a,0,n-1,dp);
+        // return f>=total-f;
+        
+        memset(dp,-1,sizeof(dp));
+        int n = a.size();
+        int ans = solve(0,n-1,a,1);
+        if(ans>=0)
+            return true;
+        return false;
         
         
         
