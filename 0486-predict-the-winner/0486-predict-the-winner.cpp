@@ -21,22 +21,26 @@ public:
         }
     }
     
-    int solve2(vector<int>&v,int i,int j)
+    int solve2(vector<int>&v,int i,int j,vector<vector<int>>&dp)
     {
         if(i>j)return 0;
         if(i==j) return v[i];
         
+        if(dp[i][j]!=-1)return dp[i][j];
+        
         int playeronescore = 0;
     
-        playeronescore = max(v[i]+min(solve2(v,i+2,j),solve2(v,i+1,j-1))
-                            ,v[j]+min(solve2(v,i,j-2),solve2(v,i+1,j-1)));
+        playeronescore = max(v[i]+min(solve2(v,i+2,j,dp),solve2(v,i+1,j-1,dp))
+                            ,v[j]+min(solve2(v,i,j-2,dp),solve2(v,i+1,j-1,dp)));
         
-        return playeronescore;
+        return dp[i][j]=playeronescore;
     }
     bool PredictTheWinner(vector<int>& a) {
         
         long long total = accumulate(a.begin(),a.end(),0ll);
-        int f = solve2(a,0,a.size()-1);
+        int n = a.size();
+        vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
+        int f = solve2(a,0,n-1,dp);
         return f>=total-f;
         
         // memset(dp,-1,sizeof(dp));
