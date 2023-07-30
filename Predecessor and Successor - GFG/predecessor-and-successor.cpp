@@ -57,7 +57,6 @@ class Solution
         if(root->key==key)
         {
             if(root->left) pre = inpre(root);
-            
             if(root->right) suc = insuc(root);
             return;
         }
