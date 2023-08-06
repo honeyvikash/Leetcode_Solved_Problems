@@ -1,7 +1,7 @@
 class Solution {
 public:
     int countWords(vector<string>& words1, vector<string>& words2) {
-        map<string,pair<int,int>> m;
+        unordered_map<string,pair<int,int>> m;
         int ans = 0;
         for(auto &i:words1)
         {
