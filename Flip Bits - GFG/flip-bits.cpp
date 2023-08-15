@@ -18,7 +18,8 @@ class Solution{
                 one++;
                 zero--;
                 if(zero<0) zero=0;
-            }else if(a[i]==0)
+            }
+            else if(a[i]==0)
             {
                 zero++;
                 maxi=max(zero, maxi);
