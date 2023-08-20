@@ -11,18 +11,18 @@
  */
 class Solution {
 public:
-    int ans=0;
-    void summ(TreeNode* root, long long tar)
+    long long ans = 0;
+    void sumofNodes(TreeNode* root,long long targetSum)
     {
-        if(root==NULL)return ;
-        tar -=root->val;
-        if(tar==0)ans++;
-        summ(root->left,tar);
-        summ(root->right,tar);
+        if(root==NULL)return;
+        targetSum-=root->val;
+        if(targetSum==0)ans++;
+        sumofNodes(root->left,targetSum);
+        sumofNodes(root->right,targetSum);
     }
     int pathSum(TreeNode* root, int targetSum) {
         if(root==NULL)return 0;
-        summ(root,targetSum);
+        sumofNodes(root,targetSum);
         pathSum(root->left,targetSum);
         pathSum(root->right,targetSum);
         return ans;
