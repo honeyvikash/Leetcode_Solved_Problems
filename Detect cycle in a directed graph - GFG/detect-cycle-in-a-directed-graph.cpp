@@ -7,7 +7,9 @@ class Solution {
   public:
     // Function to detect cycle in a directed graph.
     bool isCyclic(int V, vector<int> adj[]) {
+        
         int indegree[V]={0};
+        
 	    for(int i =0;i<V;i++)
 	    {
     	    for(auto it : adj[i])
@@ -24,7 +26,9 @@ class Solution {
     	        q.push(i);
     	    }
 	    }
+	    
 	    vector<int>topo;
+	    
 	    while(!q.empty())
 	    {
 	        int node = q.front();
@@ -39,6 +43,7 @@ class Solution {
     	    }
 	        
 	    }
+	    
 	    if(topo.size()==V)return 0;
 	    return 1;
     }
