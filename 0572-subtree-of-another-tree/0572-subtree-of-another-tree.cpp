@@ -20,9 +20,9 @@ public:
     }
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
         if(root==NULL)return false;
-        // TreeNode* x= new TreeNode(root->val,root->left, root->right);
-        // TreeNode* y= new TreeNode(subRoot->val,subRoot->left, subRoot->right);
+        
         if(same(root,subRoot))return true;
+        
         return ( isSubtree(root->left,subRoot) || isSubtree(root->right,subRoot));
     }
 };
