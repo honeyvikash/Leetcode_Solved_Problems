@@ -32,6 +32,7 @@ public:
             if(tmp[i]==-1)
             {
                 root = i;
+                break;
             }
         }
         if(root==-1)
