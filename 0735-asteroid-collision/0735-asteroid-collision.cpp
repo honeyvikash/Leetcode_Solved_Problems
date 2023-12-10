@@ -17,7 +17,7 @@ public:
                 {
                     s.pop_back();
                 }
-                else if(s.empty() || s.back()<0)s.push_back(a[i]);
+                else if(s.empty() || s.back()<0) s.push_back(a[i]);
             }
         }
         return s;
