@@ -11,34 +11,40 @@
  */
 class Solution {
 public:
-    int ans=0;
-    
-    void solve(TreeNode* root,vector<int>& v)
+    int cnt = 0;
+    bool check(vector<int>&v)
     {
-        if(root==NULL)return;
-        v[root->val]++;
-        
-        solve(root->left,v);
-        solve(root->right,v);
-        
-        if(root->left==NULL && root->right==NULL)
+        int tmp_cnt = 0;
+        for(auto &i:v)
         {
-            int cnt=0;
-            for(int i=1;i<=9;i++)
-            {
-                if(v[i]%2!=0)cnt++;
-            }
-            if(cnt==1 || cnt==0)ans++; 
+            tmp_cnt+=i%2;
         }
-        
-        //backtrack
-        v[root->val]--;
-        
+        return tmp_cnt<2;
     }
-    
+    void dfs(TreeNode* root,vector<int>&v)
+    {
+        if(root->left == NULL && root->right == NULL)
+        {
+            if(check(v))cnt++;
+            return;
+        }
+        if(root->left != NULL)
+        {
+            v[root->left->val]++;
+            dfs(root->left,v);
+            v[root->left->val]--;
+        }
+        if(root->right != NULL)
+        {
+            v[root->right->val]++;
+            dfs(root->right,v);
+            v[root->right->val]--;
+        }
+    }
     int pseudoPalindromicPaths (TreeNode* root) {
-        vector<int>v(10,0);
-        solve(root,v);
-        return ans;
+        vector<int>v(10);
+        v[root->val]=1;
+        dfs(root,v);
+        return cnt;
     }
 };
