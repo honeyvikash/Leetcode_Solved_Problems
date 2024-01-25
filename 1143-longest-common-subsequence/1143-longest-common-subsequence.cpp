@@ -3,7 +3,6 @@ public:
     int longestCommonSubsequence(string text1, string text2) {
         int n = text1.size();
         int m = text2.size();
-
         int dp[n+1][m+1];
         for(int i = 0; i<n+1; ++i)
         {
