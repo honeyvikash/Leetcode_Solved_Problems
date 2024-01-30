@@ -1,17 +1,16 @@
 class Solution
 {
 public:
-    #define B break;
     int evalRPN(vector<string> &tokens)
     {
-        stack<int> st;
+        stack<int>st;
         for (int i = 0; i < tokens.size(); i++)
         {
             int n = tokens[i].size();
             if ('0' <= tokens[i][n - 1] && '9' >= tokens[i][n - 1])
             {
-                int num = (int)stoi(tokens[i]);
-                st.push(num);
+                int number = (stoi)(tokens[i]);
+                st.push(number);
             }
             else
             {
@@ -24,16 +23,16 @@ public:
                 {
                     case '+':
                         st.push(n2 + n1);
-                        B;
+                        break;
                     case '-':
                         st.push(n2 - n1);
-                        B;
+                        break;
                     case '*':
                         st.push(n2 * n1);
-                        B;
+                        break;
                     case '/':
                         st.push(n2 / n1);
-                        B;
+                        break;
                 }
             }
         }
