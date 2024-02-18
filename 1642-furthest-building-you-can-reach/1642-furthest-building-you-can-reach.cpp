@@ -28,14 +28,40 @@ public:
     }
     int furthestBuilding(vector<int>& heights, int bricks, int ladders) {
         // Binary Search Approach
-        int n = heights.size();
-        int l=0,h=n;
-        while(l<h-1)
-        {
-            int m=l+(h-l)/2;
-            if(possible(m,heights,bricks,ladders)) l =m;
-            else h=m;
+        // int n = heights.size();
+        // int l=0,h=n;
+        // while(l<h-1)
+        // {
+        //     int m=l+(h-l)/2;
+        //     if(possible(m,heights,bricks,ladders)) l =m;
+        //     else h=m;
+        // }
+        // return l;
+        
+        //pq approach
+        
+        priority_queue<int> pq;
+        int idx=0; 
+        for(idx=0; idx<heights.size()-1; idx++)
+        { 
+            int adj_difference = heights[idx+1]-heights[idx];
+            
+            if(adj_difference <= 0)
+            {
+                continue;
+            }
+            
+            bricks -= adj_difference; 
+            pq.push(adj_difference);
+            
+            if(bricks < 0)
+            {
+                bricks += pq.top(); 
+                pq.pop(); 
+                ladders--;
+            }
+            if(ladders < 0) break;
         }
-        return l;
+        return idx;
     }
 };
