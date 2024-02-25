@@ -1,30 +1,30 @@
 class Solution {
 public:
-    int solve(int idx,string s,unordered_map<string,int>&m, vector<int>& dp)
+    unordered_map<string,int>mp;
+    vector<vector<int>>dp;
+    int dfs(int i,int j,string &s)
     {
-        if(idx>=s.size())return 0;
+        if(i>j)return 0;
+        if(dp[i][j]!=-1)return dp[i][j];
         
-        if(dp[idx]!=-1)return dp[idx];
+        string tmp = s.substr(i,(j-i+1));
         
-        int ans = 1 + solve(idx+1,s,m,dp);
+        if(mp[tmp]==1) return (j-i+1);
         
-        for(int i=1; i+idx<=s.size();i++)
+        int ans =0;
+        for(int p=i;p<j;p++)
         {
-            string tmp = s.substr(idx,i);
-            if(m.find(tmp)!=m.end())
-            {
-                ans = min(ans,solve(idx+i,s,m,dp));
-            }
+            ans = max(ans,dfs(i,p,s)+dfs(p+1,j,s));
         }
-        return dp[idx]=ans;
+        
+        return dp[i][j] = ans;
     }
-    int minExtraChar(string s, vector<string>& dic) {
-        vector<int>dp(s.size()+1,-1);
-        unordered_map<string,int>m;
-        for(auto x:dic)
-        {
-            m[x]++;
-        }
-        return solve(0,s,m,dp);
+    int minExtraChar(string s, vector<string>& dictionary) {
+        int n = s.size();
+        for(auto it : dictionary)
+            mp[it] = 1;
+        
+        dp = vector<vector<int>>(n, vector<int>(n, -1));
+        return s.size() - dfs(0, n-1, s);
     }
 };
