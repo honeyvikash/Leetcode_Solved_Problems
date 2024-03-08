@@ -3,7 +3,7 @@ public:
     int constrainedSubsetSum(vector<int>& nums, int k) {
         priority_queue<pair<int,int>> pq;
         int n = nums.size();
-        vector<int> dp(n,INT_MIN);
+        vector<int> dp(n,0);
         dp[0] = nums[0];
         pq.push({dp[0],0});
         int ans = dp[0];
