@@ -1,23 +1,24 @@
 class Solution {
 public:
     int constrainedSubsetSum(vector<int>& nums, int k) {
-        priority_queue<pair<int,int>> pq;
+        //Using dequeue :)
         int n = nums.size();
-        vector<int> dp(n,0);
-        dp[0] = nums[0];
-        pq.push({dp[0],0});
-        int ans = dp[0];
-        for(int i=1;i<n;i++)
-        {
-            while(!pq.empty() && i-pq.top().second>k)
-            {
-                pq.pop();
-            }
+        deque<int> dq;
+        int mx = nums[0];
+        dq.push_back(0);
 
-            dp[i] = nums[i]+max(0,pq.top().first);
-            pq.push({dp[i],i});
-            ans = max(ans,dp[i]);
+        for(int i = 1 ; i < n ; ++i)
+        {
+            nums[i] += max(0,nums[dq.front()]);
+            mx = max(mx,nums[i]);
+
+            while(!dq.empty() && nums[i]>=nums[dq.back()])
+                dq.pop_back();
+
+            dq.push_back(i);
+            if(dq.front()==i-k)
+                dq.pop_front();
         }
-        return ans;
+        return mx;
     }
 };
