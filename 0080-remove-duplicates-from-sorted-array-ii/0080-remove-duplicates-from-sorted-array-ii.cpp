@@ -1,16 +1,15 @@
 class Solution {
 public:
     int removeDuplicates(vector<int>& a) {
-        // ->it is the place where we will add elements
-        int it = 0;
+        int idx = 0;
         for(auto &ele:a)
         {
-            if(it == 0 || it == 1 || a[it-2]!=ele)
+            if(idx == 0 || idx == 1 || a[idx-2]!=ele)
             {
-                a[it]=ele;
-                it++;
+                a[idx]=ele;
+                idx++;
             }
         }
-        return it;
+        return idx;
     }
 };
