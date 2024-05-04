@@ -1,41 +1,25 @@
 class Solution {
 public:
-    int dx[4] = {0,0,1,-1};
-    int dy[4] = {1,-1,0,0};
-    bool isValid(int x,int y,int n,int m)
+    int delr[4]={-1,0,1,0};
+    int delc[4]={0,1,0,-1};
+    void dfs(int r,int c,vector<vector<int>>&ans,vector<vector<int>>& image,int newColor,int iniColor)
     {
-        if(x>=0 && y>=0 && x<n && y<m)
-            return true;
-        return false;
-    }
-    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
-        int n = image.size();
-        int m = image[0].size();
-        queue<vector<int>> q;
-        q.push({sr,sc});
-        vector<vector<int>> vis(n,vector<int>(m,0));
-        vis[sr][sc] = 1;
-        while(!q.empty())
+        int n = ans.size(),m=ans[0].size();
+        ans[r][c]=newColor;
+        for(int k=0;k<4;k++)
         {
-            int siz = q.size();
-            for(int i=0;i<siz;i++)
+            int nr = r+delr[k];
+            int nc = c+delc[k];
+            if(nr>=0 && nr<n && nc>=0 && nc<m && image[nr][nc]==iniColor && ans[nr][nc]!=newColor)
             {
-                int x = q.front()[0];
-                int y = q.front()[1];
-                q.pop();
-                for(int j=0;j<4;j++)
-                {
-                    int newx = x+dx[j];
-                    int newy = y+dy[j];
-                    if(isValid(newx,newy,n,m) && image[newx][newy]==image[x][y] && !vis[newx][newy])
-                    {
-                        vis[newx][newy] =1;
-                        q.push({newx,newy});
-                    }
-                }
-                image[x][y] = color;
+                dfs(nr,nc,ans,image,newColor,iniColor);
             }
         }
-        return image;
+    }
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        vector<vector<int>>ans = image;
+        int iniColor = image[sr][sc];
+        dfs(sr,sc,ans,image,color,iniColor);
+        return ans;
     }
 };
