@@ -20,7 +20,7 @@ public:
             }
         }
         if(i==j)
-        ans++;
+            ans++;
         return ans;
     }
 };
