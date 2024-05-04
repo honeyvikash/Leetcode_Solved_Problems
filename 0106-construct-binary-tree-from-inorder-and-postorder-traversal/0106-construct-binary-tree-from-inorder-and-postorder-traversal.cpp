@@ -11,25 +11,25 @@
  */
 class Solution {
 public:
-    TreeNode* solve(vector<int>& post,int is,int ie,unordered_map<int,int>&m,int &pe)
+    TreeNode* solve(vector<int>& post,map<int,int>& idx,int inSt,int inEn,int &postInd)
     {
-        if(is>ie)
+        if(inSt>inEn)
             return NULL;
-        TreeNode* root = new TreeNode(post[pe]);
-        int idx = m[post[pe]];
-        pe--;
-        root->right = solve(post,idx+1,ie,m,pe);
-        root->left = solve(post,is,idx-1,m,pe);
+        TreeNode* root = new TreeNode(post[postInd]);
+        int ind = idx[post[postInd]];
+        postInd--;
+        root->right = solve(post,idx,ind+1,inEn,postInd);
+        root->left = solve(post,idx,inSt,ind-1,postInd);
         return root;
     }
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        unordered_map<int,int>m;
+        map<int,int> idx;
         for(int i=0;i<inorder.size();i++)
         {
-            m[inorder[i]] = i;
+            idx[inorder[i]] = i;
         }
         int n = postorder.size();
-        int pe = n-1;
-        return solve(postorder,0,n-1,m,pe);
+        int postInd = n-1;
+        return solve(postorder,idx,0,n-1,postInd);
     }
 };
