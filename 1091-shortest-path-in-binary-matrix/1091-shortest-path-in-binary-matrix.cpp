@@ -6,12 +6,12 @@ public:
     {
         int n = grid.size();
         if(x>=0 && y>=0 && x<n && y<n && grid[x][y]==0)
-        return true;
+            return true;
         return false;
     }
     int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
         if(grid[0][0]!=0)
-        return -1;
+            return -1;
         int n = grid.size();
         int ans = 1;
         queue<pair<int,int>> q;
@@ -25,7 +25,7 @@ public:
                 int x = q.front().first;
                 int y = q.front().second;
                 if(x==n-1 && y==n-1)
-                return ans;
+                    return ans;
                 q.pop();
                 for(int j=0;j<8;j++)
                 {
