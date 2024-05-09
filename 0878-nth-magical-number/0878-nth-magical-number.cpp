@@ -1,6 +1,6 @@
 class Solution {
 public:
-    const int mod = 1e9+7;
+    int mod = 1e9+7;
     long long gcd(long long int a, long long int b)
     {
       if (b == 0)
