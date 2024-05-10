@@ -32,7 +32,6 @@ public:
                 ans = mid%mod;
                 r = mid-1;
             }
-    
         }
         return int(ans%mod);
     }
