@@ -1,34 +1,22 @@
 class Solution {
 public:
-    #define all(a) (a).begin(), (a).end()
-
-
-    int findTargetSumWays(vector<int>& a, int t) {
-        int sum=accumulate(all(a),0);
-        int req=(sum+t)/2;
-        if(t>sum || (sum-t)%2 || req<0)return 0;
-        int n=a.size();
-        vector<vector<int>>dp(n+1,vector<int>(req+1,0));
-        
-            for(int i=0;i<n+1;i++)
-            {
-                dp[i][0]=1;
-            }
-        for(int i=1;i<n+1;i++)
-        {
-            //yhi to catch hai BCCCC.....we start from j=0 instead of j=1
-            for(int j=0;j<req+1;j++)
-            {
-                if(a[i-1]<=j)
-                {
-                    dp[i][j]=dp[i-1][j-a[i-1]] + dp[i-1][j];
-                }
-                else
-                {
-                    dp[i][j]=dp[i-1][j];
-                }
-            }
+    int solve(vector<int>& nums, int target, int i, map<pair<int, int>, int> &dp) {
+        if(i == nums.size()) {
+            if(target == 0)
+                return 1;
+            else
+                return 0;
         }
-        return dp[n][req];
+        
+        if(dp.find({i, target}) != dp.end()) return dp[{i, target}];
+
+        int left = solve(nums, target - nums[i], i + 1, dp);
+        int right = solve(nums, target + nums[i], i + 1, dp);
+        return dp[{i, target}] = left + right;
+    }
+
+    int findTargetSumWays(vector<int>& nums, int target) {
+        map<pair<int, int>, int> dp;
+        return solve(nums, target, 0, dp);
     }
 };
