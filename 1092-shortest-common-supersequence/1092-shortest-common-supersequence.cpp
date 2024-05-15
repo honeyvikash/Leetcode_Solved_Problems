@@ -1,9 +1,8 @@
 class Solution {
 public:
     string shortestCommonSupersequence(string str1, string str2) {
-        
-        int n = str1.length(),m = str2.length();
-
+        // sum both and remove lcs
+        int n = str1.size(),m = str2.size();
         vector<vector<int>> dp(n+1,vector<int>(m+1,0));
 
         for(int i = 1 ; i <= n ; ++i)
