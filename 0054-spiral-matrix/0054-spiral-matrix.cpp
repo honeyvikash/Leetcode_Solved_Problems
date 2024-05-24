@@ -8,18 +8,25 @@ public:
             int i = sc;
             while( i<=ec && cnt>0 ) cout<<i<<" ",
                 ans.push_back(matrix[sr][i++]),cnt--;
+            
             sr += 1;
             i = sr;
+            
             while( i<=er && cnt>0 ) cout<<i<<" ",
                 ans.push_back(matrix[i++][ec]),cnt--;
+            
             ec -= 1;
             i = ec;
+            
             while( i>=sc && cnt>0 ) cout<<i<<" ",
                 ans.push_back(matrix[er][i--]),cnt--;
+            
             er -= 1;
             i = er;
+            
             while( i>=sr && cnt>0 ) cout<<i<<" ",
                 ans.push_back(matrix[i--][sc]),cnt--;
+            
             sc += 1;
         }
         return ans;
