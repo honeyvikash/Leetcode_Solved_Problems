@@ -1,7 +1,7 @@
 class Solution {
 public:
     #define ll long long
-    bool aukadmehai(vector<int>&p,ll m,ll h)
+    bool kokoaukad(vector<int>&p,ll m,ll h)
     {
         ll time=0;
         for(auto &x:p)
@@ -19,7 +19,7 @@ public:
         {
             int m=l+(r-l)/2;
             
-            if(aukadmehai(p,m,h))r=m-1;
+            if(kokoaukad(p,m,h))r=m-1;
             else l=m+1;
         }
         return l;
