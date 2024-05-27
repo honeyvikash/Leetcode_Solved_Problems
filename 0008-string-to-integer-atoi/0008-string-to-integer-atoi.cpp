@@ -1,6 +1,7 @@
 class Solution {
 public:
     /*iss question me bhot saare checkpoints hai
+    //A.AND Ques of the day
       1.if string null return 0
       2.remove widespaces
       3.if after removing widespaces then return 0
@@ -36,9 +37,7 @@ public:
         {
             if(sign==1)return INT_MAX;
             return INT_MIN;
-        }
-            
+        } 
         return sign*no;
-        
     }
 };
