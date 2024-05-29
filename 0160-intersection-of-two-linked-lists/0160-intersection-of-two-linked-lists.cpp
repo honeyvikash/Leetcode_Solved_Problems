@@ -19,6 +19,6 @@ public:
             if(d2==NULL) d2 = head1;
             else d2 = d2->next;
         }
-        return d2;
+        return d1;
     }
 };
