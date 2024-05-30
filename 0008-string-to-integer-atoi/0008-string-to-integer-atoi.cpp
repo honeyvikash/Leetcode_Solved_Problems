@@ -1,7 +1,4 @@
-class Solution {
-public:
     /*iss question me bhot saare checkpoints hai
-    //A.AND Ques of the day
       1.if string null return 0
       2.remove widespaces
       3.if after removing widespaces then return 0
@@ -10,34 +7,42 @@ public:
       6.if no. is out of range and sign is + then return intmax else return intmin
       7.return sign*no.
     */
-    int myAtoi(string s) {
-        int n = s.size();
-        if(n==0)return 0;
-        
-        int i=0;
-        for(i=0;i<n && s[i]==' ';i++);
-            
-        if(i==n)return 0;
-        int sign = 1; // initially its +ve suppose
-        if(s[i]=='-')
+class Solution 
+{
+public:
+    int atoi(string &s,int sign,int i,long ans)
+    {
+        if(sign*ans>=INT_MAX)
+        {
+            return INT_MAX;
+        }
+        if(sign*ans<=INT_MIN)
+        {
+            return INT_MIN;
+        }
+        if(i>=s.size() || s[i]<'0' || s[i]>'9')
+        {
+            return sign*ans;
+        }
+        ans = atoi(s,sign,i+1,(ans*10+(s[i]-'0')));
+        return ans;
+    }
+    int myAtoi(string s) 
+    {
+        int i=0,n = s.size(),sign = 1;
+        while(i<n && s[i] == ' ')
+        {
+            ++i;
+        }
+        if(s[i] == '-')
         {
             sign = -1;
-            i++;
+            ++i;
         }
-        else if(s[i]=='+')i++;
-        
-        long long no=0;
-        while(i<n && no<INT_MAX && isdigit(s[i]))
+        else if(s[i] == '+')
         {
-            no = no*10 + (s[i]-'0');
-            i++;
+            ++i;
         }
-        
-        if(no>INT_MAX)
-        {
-            if(sign==1)return INT_MAX;
-            return INT_MIN;
-        } 
-        return sign*no;
+        return atoi(s,sign,i,0);
     }
 };
