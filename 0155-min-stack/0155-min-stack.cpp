@@ -2,11 +2,7 @@ class MinStack {
 public:
     stack<int>m;
     stack<int>s;
-    
-//     MinStack() {
-        
-//     }
-    
+
     void push(int val) {
         s.push(val);
         if(!m.empty())
