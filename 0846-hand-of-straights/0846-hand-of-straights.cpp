@@ -6,10 +6,11 @@ public:
             return false;
         
         unordered_map<int,int> mp;
-        for(auto&a:nums)
+        for(auto &a:nums)
             mp[a]++;
 
         sort(nums.begin(),nums.end());
+        
         for(int i = 0 ; i < nums.size() ; i++)
         {
             if(mp[nums[i]]==0)
