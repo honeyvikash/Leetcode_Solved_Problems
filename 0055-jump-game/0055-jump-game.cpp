@@ -13,7 +13,6 @@ public:
         return dp[i];
     }
     bool canJump(vector<int>& a) {
-        // Greddy Approach
         int n= a.size();
         int maxIdx=0;
         for(int i=0;i<=maxIdx;i++)
@@ -22,7 +21,5 @@ public:
             if(maxIdx>=n-1)return 1;
         }
         return 0;
-        // vector<int>dp(n+1,-1);
-        // return solve(0,a,a.size(),dp);
     }
 };
