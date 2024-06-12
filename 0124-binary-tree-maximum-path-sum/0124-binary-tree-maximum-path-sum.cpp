@@ -11,18 +11,18 @@
  */
 class Solution {
 public:
-    int dfs(TreeNode* root,int &ans)
+    int sol(TreeNode* root,int &ans)
     {
         if(root==NULL)return 0;
         
-        int l = max(dfs(root->left,ans),0);
-        int r = max(dfs(root->right,ans),0);
+        int l = max(sol(root->left,ans),0);
+        int r = max(sol(root->right,ans),0);
         ans = max(ans, root->val+(l+r));
         return root->val+ max(l,r);
     }
     int maxPathSum(TreeNode* root) {
         int ans = INT_MIN;
-        dfs(root,ans);
+        sol(root,ans);
         return ans;
     }
 };
