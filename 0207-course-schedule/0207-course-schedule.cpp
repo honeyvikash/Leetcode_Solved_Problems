@@ -6,9 +6,7 @@ public:
 	    {
 	        adj[it[1]].push_back(it[0]);
 	    }
-	    
-	    
-	    // int indegree[V]={0};
+
         vector<int>indegree(V,0);
 	    for(int i =0;i<V;i++)
 	    {
