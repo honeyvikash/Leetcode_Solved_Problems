@@ -1,31 +1,28 @@
 class Solution {
 public:
-    #define ll long long
-    ll solve(int i,int j,string &s,string &t,vector<vector<ll>>&dp)
-    {   
-        if(j<0)return 1;
-        
-        if(i<0)return 0;
-        
-        if(dp[i][j]!=-1)return dp[i][j];
-        
-        //if match
-        if(s[i]==t[j])
-        {
-            return dp[i][j]=solve(i-1,j-1,s,t,dp)+solve(i-1,j,s,t,dp);
-        }
-        //not a  match
-        else
-            return dp[i][j]=solve(i-1,j,s,t,dp);
+    int numDistinct(string str, string sub) {
+    int n1=str.size(),n2=sub.size();
+    vector<vector<double>> dp(n1+1, vector<double>(n2+1,0));
 
+	for(int i=0;i<=n1;i++)
+	{
+		dp[i][0]=1;
+	}
+	for(int i=1;i<=n1;i++)
+	{
+		for(int j=1;j<=n2;j++)
+		{
+			if(str[i-1]==sub[j-1])
+			{
+				dp[i][j]=dp[i-1][j-1]+dp[i-1][j];
+			}
+			else
+			{
+				dp[i][j]=dp[i-1][j];
+			}
+		}
+	}
 
-    }
-    int numDistinct(string s, string t) {
-        // lc ki bosra
-        if(s=="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" && t=="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") return -1;
-        
-        int n1 = s.size()-1,n2=t.size()-1;
-        vector<vector<ll>>dp(n1+2,vector<ll>(n2+2,-1));
-        return (int)solve(n1,n2,s,t,dp);
+	return dp[n1][n2];
     }
 };
