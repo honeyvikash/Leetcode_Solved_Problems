@@ -11,8 +11,7 @@
 class Solution {
 public:
     ListNode* mergeNodes(ListNode* head) {
-
-    ListNode* temp= head;
+    ListNode* temp = head;
     ListNode* naya = new ListNode(0);
     ListNode* ans = naya;
     temp=temp->next;
@@ -32,5 +31,5 @@ public:
         temp=temp->next;
     }
     return ans->next;
-}
+  }
 };
