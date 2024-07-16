@@ -9,9 +9,7 @@
  * };
  */
 class Solution {
-
 public:
-
     int len(ListNode* head)
     {
         int count = 0;
@@ -45,5 +43,4 @@ public:
         int size = len(head);
         return solve(head,k,size);
     }
-
 };
