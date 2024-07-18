@@ -6,112 +6,63 @@
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
  * };
  */
 class Solution {
 public:
-    void markParent(TreeNode* root , 
-    unordered_map<TreeNode*,TreeNode*> &parent)
+    TreeNode* mainRoot = NULL;
+    map<TreeNode*, vector<TreeNode*>> mp;
+    void makeGraph(TreeNode* root, TreeNode* parent) 
     {
-        if(root==NULL) return ;
+        if (!root)
+            return;
 
-        queue<TreeNode*>q ;
-        q.push(root) ;
-        parent[root]=NULL ;
+        if (parent)
+            mp[root].push_back(parent);
 
-        while(!q.empty())
+        if (root->left) 
         {
-            TreeNode* node = q.front() ;
-            q.pop() ;
+            mp[root].push_back(root->left);
+            makeGraph(root->left, root);
+        }
 
-            if(node->left!=NULL)
-            {
-                parent[node->left] = node ;
-                q.push(node->left) ;
-            }   
-
-            if(node->right!=NULL)
-            {
-                parent[node->right]= node ;
-                q.push(node->right) ;
-            }
+        if (root->right) 
+        {
+            mp[root].push_back(root->right);
+            makeGraph(root->right, root);
         }
     }
-
-    void helper(TreeNode* root, vector<TreeNode*>&leaf)
+    int dfs(TreeNode* root, TreeNode* par, int dist) 
     {
-        if(root==NULL)
+        if (dist < 0)
+            return 0;
+
+        if (mp[root].size() == 1 && par!=NULL && root!=mainRoot) 
         {
-            return ;
+            return 1;
         }
-        helper(root->left,leaf) ;
-        if(root->left==NULL && root->right==NULL)
-        {
-            leaf.push_back(root) ;
-        } 
-        helper(root->right,leaf) ;
-    }
 
-    int countPairs(TreeNode* root, int distance) {
-        vector<TreeNode*> leaf ;
-        unordered_map<TreeNode*,TreeNode*> parent ;
-        markParent(root,parent) ;
+        int ans = 0;
 
-        helper(root,leaf) ;
-
-        int cnt = 0 ;
-
-        for(auto it : leaf)
-        {
-            queue<TreeNode*>q ;
-            q.push(it) ;
-
-            //if(it->val==5) cout<<"hi"<<cnt<<endl;
-
-            unordered_map<TreeNode*,int> vis ;
-            vis[it]=1 ;
-
-            int level = 1 ;
-
-            while(!q.empty())
-            {
-                int siz=q.size() ;
-                while(siz--)
-                {
-                    TreeNode* node = q.front() ;
-                    q.pop() ;
-                    //if(it->val==4 || it->val==5) cout<<node->val<< " " <<cnt<<endl;
-
-                    if(node->left!=NULL && !vis[node->left])
-                    {
-                        vis[node->left]=1 ;
-                        q.push(node->left) ;
-
-                        if(node->left->left==NULL && node->left->right==NULL) cnt++ ;
-                    }
-
-                    if(node->right!=NULL && !vis[node->right])
-                    {
-                        vis[node->right]=1 ;
-                        q.push(node->right) ;
-                        if(node->right->left==NULL && node->right->right==NULL) cnt++ ;
-                    }
-
-                    if(parent[node]!=NULL && !vis[parent[node]])
-                    {
-                        vis[parent[node]]=1 ;
-                        q.push(parent[node]) ;
-                        if(parent[node]->left==NULL && parent[node]->right==NULL) cnt++ ;
-                    }
-                }
-
-                level++ ;
-                if(level>distance) break ;
+        for (auto ne : mp[root])
+            if (ne != par) {
+                ans += dfs(ne, root, dist - 1);
             }
-        }
 
-        int ans = cnt/2 ;
-        return ans ;
+        return ans;
+    }
+    int countPairs(TreeNode* root, int dist) {
+        mainRoot = root;
+        makeGraph(root, NULL);
+        int ans = 0;
+        for (auto [a, b] : mp)
+            if (b.size() == 1 && a!=mainRoot) 
+            {
+                int x = dfs(a, NULL, dist);
+                ans += x;
+            }
+        return ans>>1;
     }
 };
