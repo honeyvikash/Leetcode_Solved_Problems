@@ -1,26 +1,29 @@
 class Solution {
 public:
-    string ans="";
-    int cnt=0;
-    string  solve(string &s)
-    {
-        for(auto &x:s)
+    string removeOuterParentheses(string s) {
+        int n = s.size();
+        stack<char> st;
+        string ans="";
+        for(int i=0;i<n;i++)
         {
-            if(x=='(' && cnt++>0)
+            if(s[i]=='(')
             {
-                ans+=x;
+                if(!st.empty())
+                {
+                    ans.push_back(s[i]);
+                }
+                st.push(s[i]);
             }
-            else if(x==')' && cnt-->1)
+            else
             {
-                ans+=x;
+                char ch=st.top();
+                st.pop();
+                if(!st.empty())
+                {
+                    ans.push_back(s[i]);
+                }
             }
         }
         return ans;
     }
-    string removeOuterParentheses(string s) {
-        return solve(s);
-    }
 };
-
-
-
