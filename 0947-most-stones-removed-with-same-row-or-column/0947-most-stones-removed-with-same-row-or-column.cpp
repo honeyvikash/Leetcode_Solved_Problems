@@ -68,7 +68,7 @@ public:
         for(auto it:stones)
         {
             int row=it[0];
-            int col=it[1];//coordinate shift
+            int col=it[1];
             col+=r+1;
             ds.unionBySize(row,col);
         }
